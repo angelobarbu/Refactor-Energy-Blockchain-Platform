@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Contractele mele</title>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="index-style d-flex" id="wrapper">
+        <div class="sidebar-style border-end" id="sidebar-wrapper">
+            <div class="sidebar-style sidebar-heading border-bottom">Meniu</div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action p-3" href="home">Home</a>
+                <a class="list-group-item list-group-item-action p-3" href="transactions">Tranzactiile mele</a>
+                <a class="list-group-item list-group-item-action p-3" href="#!">Contractele mele</a>
+                <a class="list-group-item list-group-item-action p-3" href="account">Contul meu</a>
+                <a class="list-group-item list-group-item-action p-3" href="index.html">Delogare</a>
+            </div>
+        </div>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <h1 class="mt-4">Contractele mele</h1> <br>
+                <table class="contracts-table">
+                    <tr>
+                        <th scope="col">Cumparator</th>
+                        <th scope="col">Vanzator</th>
+                        <th scope="col">Resursa</th>
+                        <th scope="col">Cantitate</th>
+                        <th scope="col">Pret</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Adresa contract</th>
+                        <th scope="col">Hash tranzactie</th>
+                    </tr>
+                    <% contracts.forEach(function(contract) { %>
+                    <tr>
+                        <td><%= contract.buyer_username %></td>
+                        <td><%= contract.seller_username %></td>
+                        <td><%= contract.asset_description %></td>
+                        <td><%= contract.quantity %></td>
+                        <td><%= contract.price %></td>
+                        <td><%= contract.delivery_date %></td>
+                        <td><%= contract.contract_address %></td>
+                        <td><%= contract.transaction_hash %></td>
+                    </tr>
+                    <% }) %>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+
+            // Toggle the side navigation
+            const sidebarToggle = document.body.querySelector('#sidebarToggle');
+            if (sidebarToggle) {
+                // Uncomment Below to persist sidebar toggle between refreshes
+                // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+                //     document.body.classList.toggle('sb-sidenav-toggled');
+                // }
+                sidebarToggle.addEventListener('click', event => {
+                    event.preventDefault();
+                    document.body.classList.toggle('sb-sidenav-toggled');
+                    localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+                });
+            }
+
+        });
+    </script>
+</body>
+
+</html>

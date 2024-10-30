@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tranzactiile mele</title>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="index-style d-flex" id="wrapper">
+        <div class="sidebar-style border-end" id="sidebar-wrapper">
+            <div class="sidebar-style sidebar-heading border-bottom">Meniu</div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action p-3" href="home">Home</a>
+                <a class="list-group-item list-group-item-action p-3" href="#!">Tranzactiile mele</a>
+                <a class="list-group-item list-group-item-action p-3" href="contracts">Contractele mele</a>
+                <a class="list-group-item list-group-item-action p-3" href="account">Contul meu</a>
+                <a class="list-group-item list-group-item-action p-3" href="index.html">Delogare</a>
+            </div>
+        </div>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <h1>Tranzactiile mele</h1> <br>
+                <h2>Tranzactii incheiate</h2>
+                <table class="closed-transactions-table">
+                    <tr>
+                        <th scope="col">Tip</th>
+                        <th scope="col">Resursa</th>
+                        <th scope="col">Pret</th>
+                        <th scope="col">Cantitate</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Cumparator/Vanzator</th>
+                        <th scope="col">Hash</th>
+                    </tr>
+                    <% transactions.forEach(function(transaction) { %>
+                    <tr>
+                        <td><%= transaction.type %></td>
+                        <td><%= transaction.asset_description %></td>
+                        <td><%= transaction.price %></td>
+                        <td><%= transaction.quantity %></td>
+                        <td><%= transaction.delivery_date %></td>
+                        <td><%= transaction.buyer_seller_username %></td>
+                        <td><%= transaction.transaction_hash %></td>
+                    </tr>
+                    <% }) %>
+                </table>
+
+                <h2 class="mt-1">Tranzactii deschise</h2>
+                <table class="closed-transactions-table">
+                    <tr>
+                        <th scope="col">Resursa</th>
+                        <th scope="col">Pret</th>
+                        <th scope="col">Cantitate</th>
+                        <th scope="col"></th>
+                    </tr>
+                    <% for (let i = 0; i < open_transactions.length; i++) { %>
+                    <tr>
+                        <td><%= open_transactions[i].asset_description %></td>
+                        <td><%= open_transactions[i].price %></td>
+                        <td><%= open_transactions[i].quantity %></td>
+                        <td><% if(open_transactions[i].asset_description != "Nu exista tranzactii deschise") { %>
+                            <a href="#popup-box-<%= i %>"><button class="button-45" role="button">Sterge</button></a>
+                            <div id="popup-box-<%= i %>" class="modal">
+                                <div class="content">
+                                    <form action="http://localhost:3000/delete-transaction" method="post" class="form-delete-transaction" id="form-delete-transaction" name="form-delete-transaction">
+                                        <fieldset>
+                                            <legend><b>Esti sigur ca vrei sa stergi tranzactia:</b></legend>
+                                            <div class="transaction-delete-block">
+                                                <label for="transaction-delete-asset">Resursa</label>
+                                                <input id="transaction-delete-asset" name="transaction-delete-asset" type="text" value="<%= open_transactions[i].asset_description %>" disabled>
+                                            </div>
+                                            <div class="transaction-delete-block">
+                                                <label for="transaction-delete-price">Pret</label>
+                                                <input id="transaction-delete-price" name="transaction-delete-price" type="text" value="<%= open_transactions[i].price %>" disabled>
+                                            </div>
+                                            <div class="transaction-delete-block">
+                                                <label for="transaction-delete-quantity">Cantitate</label>
+                                                <input id="transaction-delete-quantity" name="transaction-delete-quantity" type="text" value="<%= open_transactions[i].quantity %>" disabled>
+                                            </div>
+                                            <div class="invisible-block">
+                                                <label for="transaction-delete-id">ID</label>
+                                                <input id="transaction-delete-id" name="transaction-delete-id" type="text" value="<%= open_transactions[i]._id %>">
+                                            </div>
+                                        </fieldset>
+                                        <button type="submit" id="btn-delete-transaction" name="btn-delete-transaction" class="button-45">Sterge tranzactie</button>
+                                    </form>
+                                    <a href="#"
+                                       class="box-close">
+                                        ×
+                                    </a>
+                                </div>
+                            </div>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% } %>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+
+            // Toggle the side navigation
+            const sidebarToggle = document.body.querySelector('#sidebarToggle');
+            if (sidebarToggle) {
+                // Uncomment Below to persist sidebar toggle between refreshes
+                // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+                //     document.body.classList.toggle('sb-sidenav-toggled');
+                // }
+                sidebarToggle.addEventListener('click', event => {
+                    event.preventDefault();
+                    document.body.classList.toggle('sb-sidenav-toggled');
+                    localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+                });
+            }
+
+        });
+    </script>
+</body>
+
+</html>

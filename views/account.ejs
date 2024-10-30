@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Contul meu</title>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="index-style d-flex" id="wrapper">
+        <div class="sidebar-style border-end" id="sidebar-wrapper">
+            <div class="sidebar-style sidebar-heading border-bottom">Meniu</div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action p-3" href="home">Home</a>
+                <a class="list-group-item list-group-item-action p-3" href="transactions">Tranzactiile mele</a>
+                <a class="list-group-item list-group-item-action p-3" href="contracts">Contractele mele</a>
+                <a class="list-group-item list-group-item-action p-3" href="#!">Contul meu</a>
+                <a class="list-group-item list-group-item-action p-3" href="index.html">Delogare</a>
+            </div>
+        </div>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <h1 class="mt-4">Contul meu</h1>
+
+                <h2 class="mt-1">
+                    <%= account.username %>
+                </h2>
+
+                <b class="show-account-info">Nume: </b>
+                <%= account.name %> <br> <br>
+                    <b class="show-account-info">Email: </b>
+                    <%= account.email %> <br> <br>
+                        <b class="show-account-info">Telefon: </b>
+                        <%= account.phone %> <br> <br>
+                            <b class="show-account-info">Adresa: </b>
+                            <%= account.address %> <br> <br>
+                                <b class="show-account-info">Portofel digital: </b>
+                                <%= account.wallet_address %> <br> <br>
+                                <b class="show-account-info">Status parola: </b>
+                                <%= account.password_status %> <br> <br>
+                                    <br> <br>
+
+                                    <h3 class="mt-1">Actualizeaza datele contului</h3>
+                                    <form action="http://localhost:3000/update-name" method="post"
+                                        class="update-form" id="update-name-form" name="update-name-form">
+                                        <div class="update-block">
+                                            <label for="update-name">Nume</label>
+                                            <input id="update-name" name="update-name" type="text" required>
+                                        </div>
+                                        <button type="submit" id="btn-submit-update-name" name="btn-submit-update-name"
+                                            class="btn-update">Schimba numele</button>
+                                    </form>
+                                    <form action="http://localhost:3000/update-email" method="post"
+                                        class="update-form" id="update-email-form" name="update-email-form">
+                                        <div class="update-block">
+                                            <label for="update-email">Email</label>
+                                            <input id="update-email" name="update-email" type="text" required>
+                                        </div>
+                                        <button type="submit" id="btn-submit-update-email" name="btn-submit-update-email"
+                                            class="btn-update">Schimba email-ul</button>
+                                    </form>
+                                    <form action="http://localhost:3000/update-phone" method="post"
+                                        class="update-form" id="update-phone-form" name="update-phone-form">
+                                        <div class="update-block">
+                                            <label for="update-phone">Telefon</label>
+                                            <input id="update-phone" name="update-phone" type="text" required>
+                                        </div>
+                                        <button type="submit" id="btn-submit-update-phone" name="btn-submit-update-phone"
+                                            class="btn-update">Schimba telefon</button>
+                                    </form>
+                                    <form action="http://localhost:3000/update-address" method="post"
+                                        class="update-form" id="change-update-form" name="change-update-form">
+                                        <div class="update-block">
+                                            <label for="update-address">Adresa</label>
+                                            <input id="update-address" name="update-address" type="text" required>
+                                        </div>
+                                        <button type="submit" id="btn-submit-update-address" name="btn-submit-update-address"
+                                            class="btn-update">Schimba adresa</button>
+                                    </form>
+                                    <form action="http://localhost:3000/update-wallet" method="post"
+                                        class="update-form" id="update-wallet-form" name="update-wallet-form">
+                                        <div class="update-block">
+                                            <label for="update-wallet">Portofel digital</label>
+                                            <input id="update-wallet" name="update-wallet" type="text" required>
+                                        </div>
+                                        <button type="submit" id="btn-submit-update-wallet" name="btn-submit-update-wallet"
+                                            class="btn-update">Schimba adresa portofelului</button>
+                                    </form>
+                                    <form action="http://localhost:3000/update-password" method="post"
+                                        class="update-form" id="update-password-form" name="update-password-form">
+                                        <div class="update-block">
+                                            <label for="update-old-password">Parola veche</label>
+                                            <input id="update-old-password" name="update-old-password" type="password" required>
+                                        </div>
+                                        <div class="update-block">
+                                            <label for="update-new-password">Parola noua</label>
+                                            <input id="update-new-password" name="update-new-password" type="password" required>
+                                        </div>
+                                        <div class="update-block">
+                                            <label for="update-confirm-password">Repeta parola noua</label>
+                                            <input id="update-confirm-password" name="update-confirm-password" type="password" required>
+                                        </div>
+                                        <button type="submit" id="btn-submit-update-password" name="btn-submit-update-password"
+                                            class="btn-update">Schimba parola</button>
+                                    </form>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', event => {
+
+            // Toggle the side navigation
+            const sidebarToggle = document.body.querySelector('#sidebarToggle');
+            if (sidebarToggle) {
+                // Uncomment Below to persist sidebar toggle between refreshes
+                // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+                //     document.body.classList.toggle('sb-sidenav-toggled');
+                // }
+                sidebarToggle.addEventListener('click', event => {
+                    event.preventDefault();
+                    document.body.classList.toggle('sb-sidenav-toggled');
+                    localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+                });
+            }
+
+        });
+    </script>
+</body>
+
+</html>
